@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ejercicio</th>
+            <th scope="col">Series</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Repeticiones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let set of sets; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{set.ejercicio_name}}</td>
+            <td>{{set.series}}</td>
+            <td>{{set.peso + "kg"}}</td>
+            <td>{{obtenerRepeticiones(set)}}</td>
+        </tr>
+    </tbody>
+</table>

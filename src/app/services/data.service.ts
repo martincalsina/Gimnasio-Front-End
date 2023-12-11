@@ -11,6 +11,7 @@ export class DataService {
   backendUrl = "http://localhost:8080";
 
   private rutinasSubject = new Subject<void>();
+  private entrenamientosSubject = new Subject<void>();
 
   constructor(private http: HttpClient) { 
   }
@@ -40,7 +41,7 @@ export class DataService {
   }
 
   public rutinasDe(persona_id: number): Observable<any> {
-    return this.http.get<any>(`${this.backendUrl}/rutina/ver/persona_id/${persona_id}`);
+    return this.http.get<any>(`${this.backendUrl}/rutina/listar/persona_id/${persona_id}`);
   }
 
   public getRutinasSubject(): Subject<void> {
@@ -53,6 +54,18 @@ export class DataService {
       persona_id: persona_id,
       nombre: nombreNuevaRutina
     });
+  }
+
+  public entrenamientosDe(persona_id: number): Observable<any> {
+    return this.http.get<any>(`${this.backendUrl}/entrenamiento/listar/persona_id/${persona_id}`);
+  }
+
+  public getEntrenamientosSubject(): Subject<void> {
+    return this.entrenamientosSubject;
+  }
+
+  public getSetsDe(entrenamiento_id: number): Observable<any> {
+    return this.http.get<any>(`${this.backendUrl}/set/listar/entrenamiento_id/${entrenamiento_id}`);
   }
 
 }

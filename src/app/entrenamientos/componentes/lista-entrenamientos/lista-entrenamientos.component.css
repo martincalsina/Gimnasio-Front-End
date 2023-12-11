@@ -1,0 +1,18 @@
+.lista-entrenamientos-container {
+    width: 100%
+}
+
+.lista-entrenamientos-titulo h3 {
+    text-align: center;
+}
+
+.list-group {
+    width: 95%;
+    margin: auto;
+}
+
+.btn-ver-info {
+    width: 70px;
+    height: 40px;
+    margin-top: 2px;
+}

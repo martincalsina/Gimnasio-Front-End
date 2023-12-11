@@ -1,0 +1,26 @@
+<div class="lista-entrenamientos-container">
+
+    <div class="lista-entrenamientos-titulo mt-5">
+        <h3>Acceda a sus últimos entrenamientos</h3>
+    </div>
+
+    <div class="list-group mt-5">
+        <a *ngFor="let entrenamiento of entrenamientos" class="list-group-item list-group-item-action"
+            aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{entrenamiento.rutina_nombre}}</h5>
+                <small>{{entrenamiento.fecha}}</small>
+            </div>
+            <p class="mb-1"><button class="btn btn-primary btn-ver-info" type="button" data-bs-toggle="collapse"
+                    [attr.data-bs-target]="'#collapseExample'+entrenamiento.entrenamiento_id" aria-expanded="false"
+                    aria-controls="collapseExample">
+                    Ver
+                </button></p>
+            <div class="collapse" id="{{'collapseExample'+entrenamiento.entrenamiento_id}}">
+                <div class="card card-body">
+                    <app-info-entrenamientos [entrenamiento_id]="entrenamiento.entrenamiento_id"></app-info-entrenamientos>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
