@@ -1,0 +1,22 @@
+<div class="lista-rutinas-container mt-5">
+    <div class="container">
+        <div class="row row-cols-3">
+            <div *ngFor="let rutina of rutinas" class="col col-md-4">
+                <h5>{{rutina.nombre}}</h5>
+            </div>
+            <div class="col col-md-4">
+                <div>
+                    <h5 class="card-title">Nueva Rutina</h5>
+                    <div class="btn-agregar-container">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#agregarRutina">
+                            <i class="fa fa-solid fa-plus btn-agregar"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODALES-->
+<app-agregar-rutina [persona_id_input]="persona_id"></app-agregar-rutina>

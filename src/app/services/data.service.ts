@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Persona } from '../shared/models/shared.models.persona';
 
 @Injectable({
@@ -8,7 +8,9 @@ import { Persona } from '../shared/models/shared.models.persona';
 })
 export class DataService {
 
-  backendUrl = "http://localhost:8080"
+  backendUrl = "http://localhost:8080";
+
+  private rutinasSubject = new Subject<void>();
 
   constructor(private http: HttpClient) { 
   }
@@ -35,6 +37,22 @@ export class DataService {
       correo: correo,
       password: password
     })
+  }
+
+  public rutinasDe(persona_id: number): Observable<any> {
+    return this.http.get<any>(`${this.backendUrl}/rutina/ver/persona_id/${persona_id}`);
+  }
+
+  public getRutinasSubject(): Subject<void> {
+    return this.rutinasSubject;
+  }
+
+  public agregarRutina(persona_id: number, nombreNuevaRutina: string): Observable<any> {
+    this.rutinasSubject.next();
+    return this.http.post(`${this.backendUrl}/rutina/crear`, {
+      persona_id: persona_id,
+      nombre: nombreNuevaRutina
+    });
   }
 
 }

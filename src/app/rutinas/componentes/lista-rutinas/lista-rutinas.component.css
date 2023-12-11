@@ -1,0 +1,54 @@
+.lista-rutinas-container {
+    width: 95vw;
+    margin:auto;
+}
+
+.lista-rutinas {
+    margin: auto;
+}
+
+.agregar {
+    margin: auto;
+}
+
+.agregar h5,
+.agregar i {
+    text-align:center;
+}
+
+.btn-agregar-container {
+    width: 100%;
+    position: relative;
+    text-align: center; /* Añade esta línea */
+}
+
+.btn {
+    margin-top: 5px;
+}
+
+.btn-agregar {
+    font-size: 50px;
+    width: 100%;
+    border: 1px solid #8479798c;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col {
+    height: 200px;
+    width: 260px;
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: rgba(135, 29, 234, 0.749);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.col h5 {
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    color: whitesmoke;
+}

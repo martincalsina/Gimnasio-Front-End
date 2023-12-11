@@ -1,0 +1,15 @@
+.home-container {
+    width: 100vw;
+    display: container;
+    justify-content: center;
+}
+
+.header {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header h2 {
+    text-align: center;
+}

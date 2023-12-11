@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     SignupRoutingModule,
     FormsModule
+  ],
+  exports: [
   ]
 })
 export class SignupModule { }
