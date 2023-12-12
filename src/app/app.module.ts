@@ -10,7 +10,7 @@ import { RutinasModule } from './rutinas/rutinas.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Persona } from '../shared/models/shared.models.persona';
+import { Entrenamiento } from '../shared/models/shared.models.entrenamiento';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,18 @@ export class DataService {
 
   public getSetsDe(entrenamiento_id: number): Observable<any> {
     return this.http.get<any>(`${this.backendUrl}/set/listar/entrenamiento_id/${entrenamiento_id}`);
+  }
+
+  public getEjercicios(): Observable<any> {
+    return this.http.get<any>(`${this.backendUrl}/ejercicio`);
+  }
+
+  public agregarEntrenamiento(entrenamiento: Entrenamiento): Observable<any> {
+    return this.http.post(`${this.backendUrl}/entrenamiento/crear/completo`, {
+      rutina_id: entrenamiento.getRutinaId(),
+      fecha: entrenamiento.getFecha(),
+      sets: entrenamiento.getSets()
+    });
   }
 
 }

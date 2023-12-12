@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-entrenamientos',
@@ -14,7 +15,7 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
 
   private subscription = new Subscription();
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private router: Router) {}
   
 
   ngOnInit() {
@@ -50,6 +51,10 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
       // Comparar las fechas
       return fechaB.getTime() - fechaA.getTime();
     });
+  }
+
+  irAgregarRutina() {
+    this.router.navigate(['/entrenamientos/agregar']);
   }
 
 }

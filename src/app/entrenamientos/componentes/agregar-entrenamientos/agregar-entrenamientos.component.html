@@ -1,0 +1,77 @@
+<div class="container mt-5 mb-5">
+    <form>
+        <!-- Select para elegir la rutina -->
+        <div class="mb-3">
+            <label for="rutina" class="form-label">Selecciona la Rutina</label>
+            <select [(ngModel)]="rutinaElegida" class="form-select" id="rutina" name="rutina">
+                <option *ngFor="let rutina of listaRutinas" value="{{rutina.rutina_id}}">
+                    {{rutina.nombre}}
+                </option>
+            </select>
+        </div>
+
+        <!-- Input para la fecha del entrenamiento -->
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha del Entrenamiento</label>
+            <input [(ngModel)]="fecha" type="date" class="form-control" id="fecha" name="fecha">
+        </div>
+
+        <!-- Botón para agregar un nuevo ejercicio -->
+        <button type="button" class="btn btn-primary" (click)="agregarEjercicio()">Agregar Ejercicio</button>
+
+        <!-- Contenedor para los inputs de ejercicio (se expandirá dinámicamente) -->
+        <div *ngFor="let ejercicio of sets; let i = index" class="mt-3">
+
+            <div class="row">
+
+                <div class="col-md-9">
+                    <h5>Set {{ i + 1 }}</h5>
+                </div>
+
+                <div class="col-md-3">
+                    <button (click)="eliminarEjercicio(i)"
+                    type="button" class="btn btn-danger btn-eliminar-ejercicio">Eliminar Ejercicio</button>
+                </div>
+
+            </div>
+
+            <!-- Input para eleigr el ejercicio en cuestión -->
+            <div class="mb-3">
+                <label for="ejercicio{{ i }}" class="form-label">Ejercicio</label>
+                <select [(ngModel)]="sets.at(i).ejercicio_id" class="form-select" id="ejercicio{{ i }}" name="ejercicio{{ i }}">
+                    <option *ngFor="let ejElegido of listaEjercicios" value="{{ejElegido.id}}">
+                        {{ejElegido.nombre}}
+                    </option>
+                </select>
+            </div>
+
+            <!-- Input para la cantidad de series -->
+            <div class="mb-3">
+                <label for="cantidadSeries{{ i }}" class="form-label">Cantidad de Series</label>
+                <input [(ngModel)]="sets.at(i).cantSeries"
+                (ngModelChange)="actualizarRepeticiones(i)"
+                type="number" class="form-control" id="cantidadSeries{{ i }}" name="cantidadSeries{{ i }}"
+                    min="1" value="1">
+            </div>
+
+            <!-- Input para el peso usado -->
+            <div class="mb-3">
+                <label for="peso{{ i }}" class="form-label">Peso Usado</label>
+                <input [(ngModel)]="sets.at(i).peso" type="number" class="form-control" id="peso{{ i }}" name="peso{{ i }}" min="0" value="50">
+            </div>
+
+            <!-- Inputs para las repeticiones (se expandirán dinámicamente) -->
+            <div *ngFor="let serie of [].constructor(sets.at(i).cantSeries); let serieIndex = index" class="mb-3">
+                <label for="repeticiones{{ i }}{{ serieIndex }}" class="form-label">Repeticiones Serie {{ serieIndex + 1
+                    }}</label>
+                <input [(ngModel)]="sets.at(i).repeticiones.at(serieIndex).cantidad"
+                type="number" class="form-control" id="repeticiones{{ i }}{{ serie }}"
+                    name="repeticiones{{ i }}{{ serieIndex }}" min="0" value="8">
+            </div>
+        </div>
+
+        <!-- Botón para enviar el formulario -->
+        <button (click)="agregarEntrenamiento()"
+        type="submit" class="btn btn-success mt-3">Guardar Entrenamiento</button>
+    </form>
+</div>
