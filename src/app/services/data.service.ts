@@ -81,8 +81,21 @@ export class DataService {
     });
   }
 
+  public getEntrenamiento(entrenamiento_id: number): Observable<any> {
+    return this.http.get<any>(`${this.backendUrl}/entrenamiento/ver/${entrenamiento_id}`);
+  }
+
   public borrarEntrenamiento(entrenamiento_id: number): Observable<any> {
     return this.http.delete(`${this.backendUrl}/entrenamiento/borrar/${entrenamiento_id}`);
+  }
+
+  public editarEntrenamiento(entrenamiento_id: number, entrenamiento: Entrenamiento): Observable<any> {
+    return this.http.put(`${this.backendUrl}/entrenamiento/editar`, {
+      entrenamiento_id: entrenamiento_id,
+      rutina_id: entrenamiento.getRutinaId(),
+      fecha: entrenamiento.getFecha(),
+      sets: entrenamiento.getSets()
+    });
   }
 
 }

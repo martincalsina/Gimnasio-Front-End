@@ -2,6 +2,7 @@ import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular
 import { DataService } from '../../../services/data.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { EditarEntrenamientoService } from '../../../services/editar-entrenamiento.service';
 
 @Component({
   selector: 'app-lista-entrenamientos',
@@ -16,7 +17,8 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
 
   private subscription = new Subscription();
 
-  constructor(private dataService: DataService, private router: Router) {}
+  constructor(private dataService: DataService, 
+    private editarEntrenamientoService: EditarEntrenamientoService, private router: Router) {}
   
 
   ngOnInit() {
@@ -58,8 +60,13 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
     this.router.navigate(['/entrenamientos/agregar']);
   }
 
-  setEntrenamientoSeleccionado(entrenamiento_id: number): void {
+  eliminarEntrenamientoSeleccionado(entrenamiento_id: number): void {
     this.entrenamientoSeleccionado = entrenamiento_id;
-  } 
+  }
+
+  editarEntrenamientoSeleccionado(entrenamiento_id: number): void {
+    sessionStorage.setItem('entrenamientoSeleccionado_id', entrenamiento_id.toString()); 
+    this.router.navigate(['/entrenamientos/editar']);
+  }
 
 }
