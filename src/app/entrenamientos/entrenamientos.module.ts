@@ -6,13 +6,15 @@ import { ListaEntrenamientosComponent } from './componentes/lista-entrenamientos
 import { InfoEntrenamientosComponent } from './componentes/info-entrenamientos/info-entrenamientos.component';
 import { AgregarEntrenamientosComponent } from './componentes/agregar-entrenamientos/agregar-entrenamientos.component';
 import { FormsModule } from '@angular/forms';
+import { EliminarEntrenamientoComponent } from './componentes/modales/eliminar-entrenamiento/eliminar-entrenamiento.component';
 
 
 @NgModule({
   declarations: [
     ListaEntrenamientosComponent,
     InfoEntrenamientosComponent,
-    AgregarEntrenamientosComponent
+    AgregarEntrenamientosComponent,
+    EliminarEntrenamientoComponent
   ],
   imports: [
     CommonModule,

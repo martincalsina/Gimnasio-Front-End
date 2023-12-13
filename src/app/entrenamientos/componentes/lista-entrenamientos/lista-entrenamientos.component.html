@@ -17,11 +17,23 @@
                 <h5 class="mb-1">{{entrenamiento.rutina_nombre}}</h5>
                 <small>{{entrenamiento.fecha}}</small>
             </div>
-            <p class="mb-1"><button class="btn btn-primary btn-ver-info" type="button" data-bs-toggle="collapse"
-                    [attr.data-bs-target]="'#collapseExample'+entrenamiento.entrenamiento_id" aria-expanded="false"
-                    aria-controls="collapseExample">
-                    Ver
-                </button></p>
+            <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1"><button class="btn btn-primary btn-ver-info" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapseExample'+entrenamiento.entrenamiento_id" aria-expanded="false"
+                        aria-controls="collapseExample">
+                        Ver
+                    </button>
+                </p>
+                <div class="btn-eliminar-editar-container">
+                    <button (click)="setEntrenamientoSeleccionado(entrenamiento.entrenamiento_id)" class="btn btn-success">
+                        editar
+                    </button>
+                    <button (click)="setEntrenamientoSeleccionado(entrenamiento.entrenamiento_id)"
+                    type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarEntrenamiento">
+                        eliminar
+                    </button>
+                </div>
+            </div>
             <div class="collapse" id="{{'collapseExample'+entrenamiento.entrenamiento_id}}">
                 <div class="card card-body">
                     <app-info-entrenamientos [entrenamiento_id]="entrenamiento.entrenamiento_id"></app-info-entrenamientos>
@@ -30,3 +42,7 @@
         </a>
     </div>
 </div>
+
+<!--MODALES-->
+
+<app-eliminar-entrenamiento [entrenamiento_id]="entrenamientoSeleccionado"></app-eliminar-entrenamiento>

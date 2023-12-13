@@ -12,6 +12,7 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
 
   private persona_id: number = -1;
   public entrenamientos: any[] = [];
+  public entrenamientoSeleccionado: number = -1;
 
   private subscription = new Subscription();
 
@@ -56,5 +57,9 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
   irAgregarRutina() {
     this.router.navigate(['/entrenamientos/agregar']);
   }
+
+  setEntrenamientoSeleccionado(entrenamiento_id: number): void {
+    this.entrenamientoSeleccionado = entrenamiento_id;
+  } 
 
 }

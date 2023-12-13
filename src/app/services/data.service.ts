@@ -81,4 +81,8 @@ export class DataService {
     });
   }
 
+  public borrarEntrenamiento(entrenamiento_id: number): Observable<any> {
+    return this.http.delete(`${this.backendUrl}/entrenamiento/borrar/${entrenamiento_id}`);
+  }
+
 }
