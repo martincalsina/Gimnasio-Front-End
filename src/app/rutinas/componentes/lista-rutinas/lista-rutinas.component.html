@@ -4,15 +4,20 @@
             <div *ngFor="let rutina of rutinas" class="col col-md-4">
                 <h5>{{rutina.nombre}}</h5>
                 <button (click)="eliminarRutinaSeleccionada(rutina.rutina_id)" type="button" class="btn btn-danger"
-                data-bs-toggle="modal" data-bs-target="#eliminarRutina">
+                    data-bs-toggle="modal" data-bs-target="#eliminarRutina">
                     Eliminar
+                </button>
+                <button (click)="editarRutinaSeleccionada(rutina.rutina_id)"
+                type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editarRutina">
+                    Editar
                 </button>
             </div>
             <div class="col col-md-4">
                 <div>
                     <h5 class="card-title">Nueva Rutina</h5>
                     <div class="btn-agregar-container">
-                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#agregarRutina">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                            data-bs-target="#agregarRutina">
                             <i class="fa fa-solid fa-plus btn-agregar"></i>
                         </button>
                     </div>
@@ -25,3 +30,4 @@
 <!--MODALES-->
 <app-agregar-rutina [persona_id_input]="persona_id"></app-agregar-rutina>
 <app-borrar-rutina [rutina_id]="rutinaSeleccionada"></app-borrar-rutina>
+<app-editar-rutina [rutina]="rutinaAEditar"></app-editar-rutina>

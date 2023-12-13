@@ -6,13 +6,15 @@ import { ListaRutinasComponent } from './componentes/lista-rutinas/lista-rutinas
 import { AgregarRutinaComponent } from './componentes/modales/agregar-rutina/agregar-rutina.component';
 import { FormsModule } from '@angular/forms';
 import { BorrarRutinaComponent } from './componentes/modales/borrar-rutina/borrar-rutina.component';
+import { EditarRutinaComponent } from './componentes/modales/editar-rutina/editar-rutina.component';
 
 
 @NgModule({
   declarations: [
     ListaRutinasComponent,
     AgregarRutinaComponent,
-    BorrarRutinaComponent
+    BorrarRutinaComponent,
+    EditarRutinaComponent
   ],
   imports: [
     CommonModule,

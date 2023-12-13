@@ -1,0 +1,22 @@
+<!-- Modal -->
+<div class="modal fade" id="editarRutina" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Editar Rutina</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="rutina_nombre" class="form-label">Nombre:</label>
+                    <input [(ngModel)]="rutina_nombre" type="nombre" class="form-control" name="rutina_nombre" id="rutina_nombre" placeholder="Pecho">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button (click)="editarRutina()" type="button"
+                    class="btn btn-primary btn-success">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>

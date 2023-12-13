@@ -13,6 +13,10 @@ export class ListaRutinasComponent {
   public rutinas: any[] = [];
 
   public rutinaSeleccionada: number = -1;
+  public rutinaAEditar: any = {
+    rutina_id: -1,
+    nombre: ""
+  };
   
   private subscription = new Subscription();
 
@@ -51,6 +55,10 @@ export class ListaRutinasComponent {
 
   eliminarRutinaSeleccionada(rutina_id: number): void {
     this.rutinaSeleccionada = rutina_id;
+  }
+
+  editarRutinaSeleccionada(rutina_id: number): void {
+    this.rutinaAEditar = this.rutinas.find(rutina => rutina.rutina_id == rutina_id);
   }
 
 }
