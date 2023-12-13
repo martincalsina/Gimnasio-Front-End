@@ -3,6 +3,10 @@
         <div class="row row-cols-3">
             <div *ngFor="let rutina of rutinas" class="col col-md-4">
                 <h5>{{rutina.nombre}}</h5>
+                <button (click)="eliminarRutinaSeleccionada(rutina.rutina_id)" type="button" class="btn btn-danger"
+                data-bs-toggle="modal" data-bs-target="#eliminarRutina">
+                    Eliminar
+                </button>
             </div>
             <div class="col col-md-4">
                 <div>
@@ -20,3 +24,4 @@
 
 <!--MODALES-->
 <app-agregar-rutina [persona_id_input]="persona_id"></app-agregar-rutina>
+<app-borrar-rutina [rutina_id]="rutinaSeleccionada"></app-borrar-rutina>

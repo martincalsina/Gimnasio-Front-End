@@ -11,6 +11,8 @@ export class ListaRutinasComponent {
   
   public persona_id: number = -1;
   public rutinas: any[] = [];
+
+  public rutinaSeleccionada: number = -1;
   
   private subscription = new Subscription();
 
@@ -45,6 +47,10 @@ export class ListaRutinasComponent {
       this.rutinas = rutinas;
       console.log("rutinas cargadas:", rutinas);
     })
+  }
+
+  eliminarRutinaSeleccionada(rutina_id: number): void {
+    this.rutinaSeleccionada = rutina_id;
   }
 
 }

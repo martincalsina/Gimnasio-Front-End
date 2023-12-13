@@ -57,6 +57,10 @@ export class DataService {
     });
   }
 
+  public borrarRutina(rutina_id: number): Observable<any> {
+    return this.http.delete(`${this.backendUrl}/rutina/borrar/${rutina_id}`);
+  }
+
   public entrenamientosDe(persona_id: number): Observable<any> {
     return this.http.get<any>(`${this.backendUrl}/entrenamiento/listar/persona_id/${persona_id}`);
   }
