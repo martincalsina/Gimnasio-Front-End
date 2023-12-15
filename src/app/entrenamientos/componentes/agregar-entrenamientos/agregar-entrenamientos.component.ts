@@ -56,7 +56,20 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
 
   cargarEjercicios() {
     this.dataService.getEjercicios().subscribe((data:any) => {
-      this.listaEjercicios = data.content;
+
+      // Ordenar la lista de ejercicios por nombre
+      this.listaEjercicios = data.content.sort((a: any, b: any) => {
+        const nombreA = a.nombre.toUpperCase(); // convertir a mayúsculas para asegurar un ordenamiento insensible a mayúsculas/minúsculas
+        const nombreB = b.nombre.toUpperCase();
+        if (nombreA < nombreB) {
+          return -1;
+        }
+        if (nombreA > nombreB) {
+          return 1;
+        }
+        return 0; // nombres iguales
+      });
+
       console.log("ejercicios cargados:", this.listaEjercicios);
     });
   }

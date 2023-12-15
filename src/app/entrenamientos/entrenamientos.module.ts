@@ -22,6 +22,9 @@ import { EditarEntrenamientosComponent } from './componentes/editar-entrenamient
     CommonModule,
     EntrenamientosRoutingModule,
     FormsModule
+  ],
+  exports: [
+    InfoEntrenamientosComponent
   ]
 })
 export class EntrenamientosModule { }

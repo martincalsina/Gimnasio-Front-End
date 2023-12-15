@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RutinasModule } from './rutinas/rutinas.module';
+import { NgChartsConfiguration, NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RutinasModule } from './rutinas/rutinas.module';
     SharedModule,
     FormsModule,
     HttpClientModule,
-    RutinasModule
+    RutinasModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

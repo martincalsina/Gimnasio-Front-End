@@ -109,4 +109,8 @@ export class DataService {
     });
   }
 
+  public obtenerDatosHistoricos(persona_id: number, ejercicio_id: number): Observable<any> {
+    return this.http.get<any>(`${this.backendUrl}/ejercicio/datosHistoricos/${persona_id}/${ejercicio_id}`);
+  }
+
 }

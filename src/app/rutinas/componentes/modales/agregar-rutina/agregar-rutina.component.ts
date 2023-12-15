@@ -29,6 +29,7 @@ export class AgregarRutinaComponent implements OnInit, OnChanges{
     console.log("nombre de nueva rutina:", this.nombreNuevaRutina);
     this.dataService.agregarRutina(this.persona_id, this.nombreNuevaRutina).subscribe((response: any) => {
       console.log(response);
+      this.dataService.getRutinasSubject().next();
     });
   }
 

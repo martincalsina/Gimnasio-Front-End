@@ -1,0 +1,25 @@
+<!-- estadisticas-ejercicio.component.html -->
+
+<div class="container mt-4 mx-auto">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <label for="selectEjercicio" class="form-label">Vea los datos históricos de los ejercicios que ha
+                realizado:</label>
+            <select id="selectEjercicio" class="form-select" [(ngModel)]="ejercicioSeleccionado">
+                <option (click)="actualizarGrafico(ejercicio.id)" 
+                *ngFor="let ejercicio of listaEjercicios" [value]="ejercicio.id">
+                    {{
+                    ejercicio.nombre}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div *ngIf="showData==true" class="col-md-8 mx-auto">
+            <canvas  baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                [legend]="barChartLegend" [type]="'line'" class="chart-container">
+            </canvas>        
+        </div>
+    </div>
+</div>
