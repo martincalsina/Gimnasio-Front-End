@@ -1,0 +1,12 @@
+.form-invalid {
+    color: rgb(205, 28, 64);
+}
+
+.invalid {
+    border-color: rgb(205, 28, 64);
+}
+
+.valid {
+    border-color: rgb(11, 183, 22);
+    border-width: 1px;
+}

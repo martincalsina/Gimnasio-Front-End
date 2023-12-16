@@ -1,31 +1,77 @@
-<div class="container d-flex align-items-center justify-content-center vh-100">
+<div class="container d-flex align-items-center justify-content-center vh-100 mt-3">
     <div class="card w-75 min-width-300px min-width-sm-400px min-width-md-500px">
         <div class="card-header">
             <h3 class="text-center">Crear Cuenta</h3>
         </div>
         <div class="card-body">
-            <form name="signup">
+            <form [formGroup]="signupForm!" (ngSubmit)="registrarUsuario()" name="signup">
+
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input [(ngModel)]="nombre" type="text" class="form-control" name="nombre" id="nombre" required>
+                    <input formControlName="nombre"
+                    [class.invalid]="!inputValido('nombre') && this.signupForm!.get('nombre')?.touched"  
+                    [class.valid]="inputValido('nombre') && this.signupForm!.get(('nombre'))?.touched"
+                    [(ngModel)]="nombre" type="text" class="form-control" name="nombre" id="nombre" required>
+                    <div class="form-invalid" *ngIf="signupForm!.get('nombre')!.hasError('required') && signupForm!.get('nombre')!.touched">
+                        Campo requerido.
+                    </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="apellido" class="form-label">Apellido</label>
-                    <input [(ngModel)]="apellido" type="text" class="form-control" name="apellido" id="apellido" required>
+                    <input formControlName="apellido" 
+                    [class.invalid]="!inputValido('apellido') && this.signupForm!.get('apellido')?.touched"  
+                    [class.valid]="inputValido('apellido') && this.signupForm!.get(('apellido'))?.touched"
+                    [(ngModel)]="apellido" type="text" class="form-control" name="apellido" id="apellido" required>
+                    <div class="form-invalid" *ngIf="signupForm!.get('apellido')!.hasError('required') && signupForm!.get('apellido')!.touched">
+                        Campo requerido.
+                    </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="correo" class="form-label">Correo Electrónico</label>
-                    <input [(ngModel)]="correo" type="email" class="form-control" name="correo" id="correo" required>
+                    <input formControlName="correo" 
+                    [class.invalid]="!inputValido('correo') && this.signupForm!.get('correo')?.touched"  
+                    [class.valid]="inputValido('correo') && this.signupForm!.get(('correo'))?.touched"
+                    [(ngModel)]="correo" type="email" class="form-control" name="correo" id="correo" required>
+                    <div class="form-invalid" *ngIf="signupForm!.get('correo')!.hasError('email') && signupForm!.get('correo')!.touched">
+                        Correo electrónico inválido.
+                    </div>
+                    <div class="form-invalid" *ngIf="signupForm!.get('correo')!.hasError('maxLength') && signupForm!.get('correo')!.touched">
+                        Máximo 150 caracteres permitidos.
+                    </div>
+                    <div class="form-invalid" *ngIf="signupForm!.get('correo')!.hasError('required') && signupForm!.get('correo')!.touched">
+                        Campo requerido.
+                    </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input [(ngModel)]="password" type="password" class="form-control" name="password" id="password" required>
+                    <input formControlName="password"   
+                    [class.invalid]="!inputValido('password') && this.signupForm!.get('password')?.touched"  
+                    [class.valid]="inputValido('password') && this.signupForm!.get(('password'))?.touched"
+                    [(ngModel)]="password" minlength=8 type="password" class="form-control" name="password" id="password" required>
+                    <div class="form-invalid" *ngIf="signupForm!.get('password')!.hasError('required') && signupForm!.get('password')!.touched">
+                        Campo requerido.
+                    </div>
+                    <div class="form-invalid" *ngIf="signupForm!.get('password')!.hasError('minlength') && signupForm!.get('password')!.touched">
+                        Mínimo 8 caracteres.
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
-                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required>
+                    <input formControlName="confirmPassword"  
+                    [class.invalid]="!inputValido('confirmPassword') && this.signupForm!.get('confirmPassword')?.touched"  
+                    [class.valid]="inputValido('confirmPassword') && this.signupForm!.get(('confirmPassword'))?.touched"
+                    type="password" class="form-control" name="confirmPassword" id="confirmPassword" required>
+                    <div class="form-invalid" *ngIf="signupForm!.get('confirmPassword')!.hasError('required') && signupForm!.get('confirmPassword')!.touched">
+                        Campo requerido.
+                    </div>
+                    <div class="form-invalid" *ngIf="signupForm!.hasError('mismatch', 'confirmPassword') && signupForm!.get('confirmPassword')!.touched">
+                        Las contraseñas no coinciden.
+                    </div>
                 </div>
-                <button (click)="registrarUsuario()" type="submit" class="btn btn-primary">Registrarse</button>
+                <button type="submit" class="btn btn-primary">Registrarse</button>
             </form>
         </div>
         <div class="card-footer text-center">
