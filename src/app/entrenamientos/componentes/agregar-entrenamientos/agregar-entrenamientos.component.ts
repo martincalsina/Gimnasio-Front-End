@@ -3,6 +3,7 @@ import { DataService } from '../../../services/data.service';
 import { Set } from '../../../shared/models/shared.model.set';
 import { Entrenamiento } from '../../../shared/models/shared.models.entrenamiento';
 import { Repeticion } from '../../../shared/models/shared.model.repeticion';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-entrenamientos',
@@ -32,7 +33,7 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
     }
   ];
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private router: Router) {
   }
 
   ngOnInit() {
@@ -140,7 +141,10 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
 
       this.dataService.agregarEntrenamiento(entrenamiento).subscribe((data:any) => {
         console.log("Entrenamiento creado:", data);
+        this.dataService.getEntrenamientosSubject().next();
       });
+
+      this.router.navigate(['/entrenamientos']);
       
     }
   }

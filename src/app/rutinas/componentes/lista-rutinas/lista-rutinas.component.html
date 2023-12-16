@@ -2,15 +2,21 @@
     <div class="container">
         <div class="row row-cols-3">
             <div *ngFor="let rutina of rutinas" class="col col-md-4">
-                <h5>{{rutina.nombre}}</h5>
-                <button (click)="eliminarRutinaSeleccionada(rutina.rutina_id)" type="button" class="btn btn-danger"
-                    data-bs-toggle="modal" data-bs-target="#eliminarRutina">
-                    Eliminar
-                </button>
-                <button (click)="editarRutinaSeleccionada(rutina.rutina_id)"
-                type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editarRutina">
-                    Editar
-                </button>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>{{rutina.nombre}}</h5>
+                    </div>
+                    <div class="col-md-12 btn-eliminar-editar-container mt-2">
+                        <button (click)="editarRutinaSeleccionada(rutina.rutina_id)" type="button" class="btn btn-success"
+                            data-bs-toggle="modal" data-bs-target="#editarRutina">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button (click)="eliminarRutinaSeleccionada(rutina.rutina_id)" type="button" class="btn btn-danger"
+                            data-bs-toggle="modal" data-bs-target="#eliminarRutina">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="col col-md-4">
                 <div>

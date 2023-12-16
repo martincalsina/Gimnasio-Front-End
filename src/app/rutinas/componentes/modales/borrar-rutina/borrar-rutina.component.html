@@ -7,12 +7,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Haga click en Eliminar para eliminar el Rutina. No podrá revertir los cambios.
-                    Rutina: {{rutina_id}}
+                <p>Está a punto de eliminar esta rutina. Todos los entrenamientos asociados a ésta también serán eliminados, 
+                    no podrá revertir los cambios.
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button #cerrarAlTerminar type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button (click)="eliminarRutina()" type="button"
                     class="btn btn-primary btn-danger">Eliminar</button>
             </div>

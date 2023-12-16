@@ -9,14 +9,14 @@ import { FormsModule } from '@angular/forms';
 import { EliminarEntrenamientoComponent } from './componentes/modales/eliminar-entrenamiento/eliminar-entrenamiento.component';
 import { EditarEntrenamientosComponent } from './componentes/editar-entrenamientos/editar-entrenamientos.component';
 
-
 @NgModule({
   declarations: [
     ListaEntrenamientosComponent,
     InfoEntrenamientosComponent,
     AgregarEntrenamientosComponent,
     EliminarEntrenamientoComponent,
-    EditarEntrenamientosComponent
+    EditarEntrenamientosComponent,
+    EliminarEntrenamientoComponent
   ],
   imports: [
     CommonModule,

@@ -26,11 +26,11 @@
                 </p>
                 <div class="btn-eliminar-editar-container">
                     <button (click)="editarEntrenamientoSeleccionado(entrenamiento.entrenamiento_id)" class="btn btn-success">
-                        editar
+                        <i class="fa fa-pencil"></i>
                     </button>
                     <button (click)="eliminarEntrenamientoSeleccionado(entrenamiento.entrenamiento_id)"
                     type="button" class="btn btn-primary btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarEntrenamiento">
-                        eliminar
+                    <i class="fa fa-trash"></i>
                     </button>
                 </div>
             </div>
@@ -45,4 +45,5 @@
 
 <!--MODALES-->
 
-<app-eliminar-entrenamiento [entrenamiento_id]="entrenamientoSeleccionado"></app-eliminar-entrenamiento>
+<app-eliminar-entrenamiento
+[entrenamiento_id]="entrenamientoSeleccionado"></app-eliminar-entrenamiento>

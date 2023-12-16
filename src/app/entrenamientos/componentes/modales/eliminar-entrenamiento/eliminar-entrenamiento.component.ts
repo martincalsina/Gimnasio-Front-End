@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { DataService } from '../../../../services/data.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { DataService } from '../../../../services/data.service';
 export class EliminarEntrenamientoComponent {
 
   @Input() entrenamiento_id: number = -1;
+  @ViewChild('cerrarAlTerminar') cerrarAlTerminar!: ElementRef;
 
   constructor(private dataService: DataService) {
     
@@ -18,6 +19,7 @@ export class EliminarEntrenamientoComponent {
     this.dataService.borrarEntrenamiento(this.entrenamiento_id).subscribe(response => {
       console.log('Entrenamiento eliminado con éxito', response);
       this.dataService.getEntrenamientosSubject().next();
+      this.cerrarAlTerminar.nativeElement.click(); //se apreta el botón de cerrar solito
     }, error => {
       console.error('Error al eliminar entrenamiento', error);
     });

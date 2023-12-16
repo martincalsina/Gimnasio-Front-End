@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { DataService } from '../../../../services/data.service';
 
 @Component({
@@ -9,8 +9,12 @@ import { DataService } from '../../../../services/data.service';
 export class AgregarRutinaComponent implements OnInit, OnChanges{
 
   @Input() persona_id_input: any;
+  @ViewChild('cerrarAlTerminar') cerrarAlTerminar!: ElementRef;
+
   private persona_id: number = -1;
   public nombreNuevaRutina: string = "";
+
+
 
   constructor(private dataService: DataService) {
 
@@ -30,6 +34,7 @@ export class AgregarRutinaComponent implements OnInit, OnChanges{
     this.dataService.agregarRutina(this.persona_id, this.nombreNuevaRutina).subscribe((response: any) => {
       console.log(response);
       this.dataService.getRutinasSubject().next();
+      this.cerrarAlTerminar.nativeElement.click();
     });
   }
 

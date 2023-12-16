@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { DataService } from '../../../../services/data.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { DataService } from '../../../../services/data.service';
 export class EditarRutinaComponent {
 
   @Input() rutina: any = {};
+  @ViewChild('cerrarAlTerminar') cerrarAlTerminar!: ElementRef;
   
   public rutina_id: number = -1;
   public rutina_nombre :string = "";
@@ -24,6 +25,7 @@ export class EditarRutinaComponent {
     this.dataService.editarRutina(this.rutina_id, this.rutina_nombre).subscribe((data) => {
       console.log("Rutina editada: ", data);
       this.dataService.getRutinasSubject().next();
+      this.cerrarAlTerminar.nativeElement.click(); //se aprieta el botón de cerrar solito
     });
   }
 

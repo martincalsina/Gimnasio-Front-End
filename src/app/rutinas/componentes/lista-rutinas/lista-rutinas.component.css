@@ -7,6 +7,10 @@
     margin: auto;
 }
 
+.row-cols-3 {
+    gap: 20px;
+}
+
 .agregar {
     margin: auto;
 }
@@ -14,6 +18,11 @@
 .agregar h5,
 .agregar i {
     text-align:center;
+}
+
+.btn-eliminar-editar-container {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .btn-agregar-container {
@@ -32,6 +41,11 @@
     border: 1px solid #8479798c;
     margin-left: auto;
     margin-right: auto;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
+}
+
+.btn-agregar:hover {
+    background-color: rgba(135, 29, 234, 1);
 }
 
 .col {
@@ -43,7 +57,13 @@
     display:flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
     border-radius: 10px;
+}
+
+/* Cambia el color de fondo al pasar el ratón */
+.col:hover {
+    background-color: rgba(135, 29, 234, 0.9);
 }
 
 .col h5 {
@@ -52,3 +72,4 @@
     text-align: center;
     color: whitesmoke;
 }
+
