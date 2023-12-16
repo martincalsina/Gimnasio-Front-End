@@ -133,6 +133,7 @@ export class EditarEntrenamientosComponent implements OnInit, OnDestroy {
 
     this.dataService.editarEntrenamiento(this.entrenamiento_id, entrenamiento).subscribe(data => {
       console.log("entrenamiento editado:", data);
+      this.dataService.getEntrenamientosSubject().next();
     });
 
     sessionStorage.removeItem('entrenamientoSeleccionado_id');

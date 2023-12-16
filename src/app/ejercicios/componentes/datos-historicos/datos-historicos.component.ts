@@ -12,7 +12,7 @@ export class DatosHistoricosComponent {
 
   private persona_id: number = -1;
 
-  public showData = true;
+  public showData = false;
 
   listaEjercicios: any[] = []; 
   ejercicioSeleccionado: number = -1;

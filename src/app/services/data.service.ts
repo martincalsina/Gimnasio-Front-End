@@ -41,6 +41,10 @@ export class DataService {
     })
   }
 
+  public verPersona(persona_id: number): Observable<any> {
+    return this.http.get(`${this.backendUrl}/persona/ver/${persona_id}`);
+  }
+
   public rutinasDe(persona_id: number): Observable<any> {
     return this.http.get<any>(`${this.backendUrl}/rutina/listar/persona_id/${persona_id}`);
   }
