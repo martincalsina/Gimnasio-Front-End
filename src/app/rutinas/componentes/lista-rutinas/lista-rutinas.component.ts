@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { Subscription } from 'rxjs';
+import { CargaService } from '../../../services/carga.service';
 
 @Component({
   selector: 'app-lista-rutinas',
@@ -20,19 +21,17 @@ export class ListaRutinasComponent {
   
   private subscription = new Subscription();
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+    private cargaService: CargaService) {
 
   }
 
   ngOnInit() {
-    /*
-    hacemos que este componente esté subscripto a un Subject para poder actualizar la lista de rutinas
-    de manera dinámica. Así, no hace falta enviar eventos desde componentes hijos hacia éste,
-    basta que, al actualizar/borrar una rutina, el método que se conecta con el back
-    haga que el Subject emita un evento para que este componente use su método para actualizarRutinas
-    */
+    
     this.subscription = this.dataService.getRutinasSubject().subscribe((r:any) => {
+
       this.actualizarRutinas();
+
     });
     this.dataService.getRutinasSubject().next();
   }
@@ -45,11 +44,18 @@ export class ListaRutinasComponent {
   }
 
   actualizarRutinas(): void {
+
+    this.cargaService.setCargandoSubject(true);
+
     this.persona_id = parseInt(sessionStorage.getItem('user_id')!);
     console.log("id del usuario:", this.persona_id)
     this.dataService.rutinasDe(this.persona_id).subscribe((rutinas: any) => {
+
       this.rutinas = rutinas;
       console.log("rutinas cargadas:", rutinas);
+
+      this.cargaService.setCargandoSubject(false);
+      
     })
   }
 

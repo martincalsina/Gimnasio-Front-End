@@ -6,6 +6,7 @@ import { Entrenamiento } from '../../../shared/models/shared.models.entrenamient
 import { Repeticion } from '../../../shared/models/shared.model.repeticion';
 import { Set } from '../../../shared/models/shared.model.set';
 import { Router } from '@angular/router';
+import { CargaService } from '../../../services/carga.service';
 
 @Component({
   selector: 'app-editar-entrenamientos',
@@ -40,11 +41,14 @@ export class EditarEntrenamientosComponent implements OnInit, OnDestroy {
   private subcription: Subscription = new Subscription();
 
   constructor(private dataService: DataService, 
+    private cargaService: CargaService,
     private router: Router) {
 
     }
 
   ngOnInit(): void {
+
+    this.cargaService.setCargandoSubject(true);
 
     this.persona_id = parseInt(sessionStorage.getItem("user_id")!);
     this.cargarRutinas();
@@ -68,9 +72,13 @@ export class EditarEntrenamientosComponent implements OnInit, OnDestroy {
   //CARGA DE DATOS A EDITAR
 
   cargarEntrenamientoAEditar(data: any): void {
+
     this.rutinaElegida = data.rutina_id;
     this.fecha = data.fecha;
     this.sets = this.cargarSetsAEditar(data.sets);
+
+    this.cargaService.setCargandoSubject(false);
+    
   }
 
   cargarSetsAEditar(sets: any): any[] {

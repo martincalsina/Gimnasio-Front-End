@@ -1,3 +1,8 @@
 div.card {
     min-width: 50%;
 }
+
+.form-invalid {
+    color: rgb(205, 28, 64);
+    margin-bottom: 10px;
+}

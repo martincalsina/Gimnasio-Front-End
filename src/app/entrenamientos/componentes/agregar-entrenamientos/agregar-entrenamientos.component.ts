@@ -4,6 +4,7 @@ import { Set } from '../../../shared/models/shared.model.set';
 import { Entrenamiento } from '../../../shared/models/shared.models.entrenamiento';
 import { Repeticion } from '../../../shared/models/shared.model.repeticion';
 import { Router } from '@angular/router';
+import { CargaService } from '../../../services/carga.service';
 
 @Component({
   selector: 'app-agregar-entrenamientos',
@@ -33,10 +34,14 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
     }
   ];
 
-  constructor(private dataService: DataService, private router: Router) {
+  constructor(private dataService: DataService, 
+    private cargaService: CargaService,
+    private router: Router) {
   }
 
   ngOnInit() {
+
+    this.cargaService.setCargandoSubject(true);
     this.persona_id = parseInt(sessionStorage.getItem("user_id")!);
     this.cargarRutinas();
     this.cargarEjercicios();
@@ -72,6 +77,8 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
       });
 
       console.log("ejercicios cargados:", this.listaEjercicios);
+
+      this.cargaService.setCargandoSubject(false);
     });
   }
 

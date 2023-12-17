@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {  ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
 import {} from 'ng2-charts';
 import { DataService } from '../../../services/data.service';
+import { CargaService } from '../../../services/carga.service';
 
 @Component({
   selector: 'app-datos-historicos',
@@ -24,6 +25,20 @@ export class DatosHistoricosComponent {
   // Configuración del gráfico
   barChartOptions: ChartOptions = {
     responsive: true,
+    scales: {
+      x: {
+         title: {
+          text: "Fecha",
+          display: true
+         }
+      },
+      y: {
+        title: {
+          text: "Peso en Kilogramos",
+          display: true
+        }
+      }
+    }
   };
 
   // Tipo de gráfico
@@ -37,9 +52,12 @@ export class DatosHistoricosComponent {
     ]
   };
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService,
+    private cargaService: CargaService) {}
 
   ngOnInit(): void {
+
+    this.cargaService.setCargandoSubject(true);
 
     this.persona_id = parseInt(sessionStorage.getItem('user_id')!);
 
@@ -58,11 +76,16 @@ export class DatosHistoricosComponent {
         return 0; // nombres iguales
       });
 
+
+      this.cargaService.setCargandoSubject(false);
+
     });
 
   }
 
   actualizarGrafico(ejercicio_id: number): void {
+
+    this.cargaService.setCargandoSubject(true);
 
     this.showData = false;
 
@@ -107,6 +130,8 @@ export class DatosHistoricosComponent {
         console.log("actualicé los datos:", this.barChartData);
 
         this.showData = true;
+
+        this.cargaService.setCargandoSubject(false);
         
       });
 

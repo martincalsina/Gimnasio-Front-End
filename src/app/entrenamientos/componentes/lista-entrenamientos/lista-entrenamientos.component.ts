@@ -3,6 +3,7 @@ import { DataService } from '../../../services/data.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { EditarEntrenamientoService } from '../../../services/editar-entrenamiento.service';
+import { CargaService } from '../../../services/carga.service';
 
 @Component({
   selector: 'app-lista-entrenamientos',
@@ -18,7 +19,7 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
   private subscription = new Subscription();
 
   constructor(private dataService: DataService, 
-    private editarEntrenamientoService: EditarEntrenamientoService, private router: Router) {}
+    private cargaService: CargaService, private router: Router) {}
   
 
   ngOnInit() {
@@ -37,12 +38,19 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
   }
 
   actualizarEntrenamientos(): void {
+
+    this.cargaService.setCargandoSubject(true);
+
     this.persona_id = parseInt(sessionStorage.getItem('user_id')!);
     console.log("id del usuario:", this.persona_id);
     this.dataService.entrenamientosDe(this.persona_id).subscribe((entrenamientos:any) => {
+      
       console.log("entrenamientos cargados:", entrenamientos);      
       this.entrenamientos = this.ordernarPorFecha(entrenamientos);
+
+      this.cargaService.setCargandoSubject(false);
     });
+
   }
 
   ordernarPorFecha(entrenamientos: any[]): any[] {

@@ -15,6 +15,10 @@
     margin-left: 10px;
 }
 
+.btn-eliminar-editar-container button {
+    margin: auto 5px;
+}
+
 .btn-ver-info {
     width: 70px;
     height: 40px;

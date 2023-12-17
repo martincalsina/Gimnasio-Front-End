@@ -28,7 +28,7 @@
 .btn-agregar-container {
     width: 100%;
     position: relative;
-    text-align: center; /* Añade esta línea */
+    text-align: center;
 }
 
 .btn {
@@ -38,14 +38,9 @@
 .btn-agregar {
     font-size: 50px;
     width: 100%;
-    border: 1px solid #8479798c;
     margin-left: auto;
     margin-right: auto;
-    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
-}
-
-.btn-agregar:hover {
-    background-color: rgba(135, 29, 234, 1);
+    transition: background-color 0.3s ease;
 }
 
 .col {
@@ -57,11 +52,10 @@
     display:flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
+    transition: background-color 0.3s ease;
     border-radius: 10px;
 }
 
-/* Cambia el color de fondo al pasar el ratón */
 .col:hover {
     background-color: rgba(135, 29, 234, 0.9);
 }

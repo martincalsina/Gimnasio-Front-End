@@ -2,6 +2,8 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { Persona } from '../../../shared/models/shared.models.persona';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CargaService } from '../../../services/carga.service';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +20,10 @@ export class SignupComponent implements OnInit {
   public password: string = "";
   public confirmedPassword: string = "";
 
-  constructor(private fb: FormBuilder, private dataService: DataService) {
+  constructor(private fb: FormBuilder, 
+    private dataService: DataService,
+    private cargaService: CargaService, 
+    private router: Router) {
 
   }
 
@@ -52,6 +57,9 @@ export class SignupComponent implements OnInit {
       console.log('Formulario válido', this.signupForm!.value);
 
       this.dataService.correoDisponible(this.correo.toLowerCase()).subscribe((correoValido) => {
+
+        this.cargaService.setCargandoSubject(true);
+
         if (correoValido) {
           let persona: Persona = new Persona(this.nombre, this.apellido, this.correo, this.password);
           this.dataService.registrarUsuario(persona);
@@ -59,7 +67,11 @@ export class SignupComponent implements OnInit {
         } else {
           console.log("El correo ya se encuentra registrado");
         }
+
+        this.cargaService.setCargandoSubject(false);
       });
+
+      this.router.navigate(['/login']);
 
     } else {
       // Mostrar errores al usuario

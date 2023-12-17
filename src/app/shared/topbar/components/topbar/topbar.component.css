@@ -18,3 +18,7 @@
 li.dropdown {
     margin-left: auto;
 }
+
+.dropdown-item:hover {
+    cursor: pointer;
+}

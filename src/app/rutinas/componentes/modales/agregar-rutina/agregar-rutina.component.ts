@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { DataService } from '../../../../services/data.service';
+import { CargaService } from '../../../../services/carga.service';
 
 @Component({
   selector: 'app-agregar-rutina',
@@ -16,7 +17,8 @@ export class AgregarRutinaComponent implements OnInit, OnChanges{
 
 
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+    private cargaService: CargaService) {
 
   }
 
@@ -29,12 +31,19 @@ export class AgregarRutinaComponent implements OnInit, OnChanges{
   }
 
   agregarRutina() {
+
+    this.cargaService.setCargandoSubject(true);
+
     console.log("usuario que agrega rutina:", this.persona_id);
     console.log("nombre de nueva rutina:", this.nombreNuevaRutina);
     this.dataService.agregarRutina(this.persona_id, this.nombreNuevaRutina).subscribe((response: any) => {
+      
+
       console.log(response);
       this.dataService.getRutinasSubject().next();
       this.cerrarAlTerminar.nativeElement.click();
+
+      this.cargaService.setCargandoSubject(false);
     });
   }
 
