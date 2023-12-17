@@ -9,7 +9,8 @@ import { Entrenamiento } from '../shared/models/shared.models.entrenamiento';
 })
 export class DataService {
 
-  backendUrl = "http://localhost:8080";
+  //backendUrl = "http://localhost:8080"; //local
+  backendUrl = "https://backend-gimnasio.onrender.com"; //produccion
 
   private rutinasSubject = new Subject<void>();
   private entrenamientosSubject = new Subject<void>();
