@@ -8,14 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RutinasModule } from './rutinas/rutinas.module';
 import { NgChartsConfiguration, NgChartsModule } from 'ng2-charts';
-import { PerfilComponent } from './perfil/componentes/perfil/perfil.component';
-import { PantallaCargaComponent } from './pantalla-carga/componentes/pantalla-carga/pantalla-carga.component';
 import { PantallaCargaModule } from './pantalla-carga/pantalla-carga.module';
+import { Error404Module } from './error404/error404.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PerfilComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +23,7 @@ import { PantallaCargaModule } from './pantalla-carga/pantalla-carga.module';
     HttpClientModule,
     RutinasModule,
     PantallaCargaModule,
+    Error404Module,
     NgChartsModule
   ],
   providers: [],

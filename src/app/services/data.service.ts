@@ -14,6 +14,7 @@ export class DataService {
 
   private rutinasSubject = new Subject<void>();
   private entrenamientosSubject = new Subject<void>();
+  private personaSubject = new Subject<void>(); //pa actualizar el nombre en la topbar si es que se edita
 
   constructor(private http: HttpClient) { 
   }
@@ -44,6 +45,20 @@ export class DataService {
 
   public verPersona(persona_id: number): Observable<any> {
     return this.http.get(`${this.backendUrl}/persona/ver/${persona_id}`);
+  }
+
+  public editarUsuario(persona_id: number, persona: Persona): Observable<any> {
+    return this.http.put(`${this.backendUrl}/persona/editar`, {
+      persona_id: persona_id,
+      nombre: persona.getNombre(),
+      apellido: persona.getApellido(),
+      correo: persona.getCorreo(),
+      password: persona.getPassword()
+    });
+  }
+
+  public getPersonaSubject(): Subject<void> {
+    return this.personaSubject;
   }
 
   public rutinasDe(persona_id: number): Observable<any> {

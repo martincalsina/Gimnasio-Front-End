@@ -9,6 +9,7 @@ const routes: Routes = [
   {path: 'rutinas', loadChildren: () => import("./rutinas/rutinas.module").then(m => m.RutinasModule)},
   {path: 'entrenamientos', loadChildren: () => import("./entrenamientos/entrenamientos.module").then(m => m.EntrenamientosModule)},
   {path: 'ejercicios', loadChildren: () => import("./ejercicios/ejercicios.module").then(m => m.EjerciciosModule)},
+  {path: 'perfil', loadChildren: () => import("./perfil/perfil.module").then(m => m.PerfilModule)},
   {path: '**', pathMatch: 'full', loadChildren: () => import("./error404/error404.module").then(m => m.Error404Module)}
 ];
 

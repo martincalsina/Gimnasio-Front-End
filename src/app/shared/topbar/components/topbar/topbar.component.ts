@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SesionService } from '../../../../services/sesion.service';
 import { Router } from '@angular/router';
 import { DataService } from '../../../../services/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-topbar',
@@ -11,6 +12,7 @@ import { DataService } from '../../../../services/data.service';
 export class TopbarComponent {
 
   public nombre: String = 'Nombre de Usuario';
+  public subscription: Subscription = new Subscription();
 
   constructor(private sesionService: SesionService, 
     private dataService: DataService, private router: Router) {}
@@ -19,9 +21,15 @@ export class TopbarComponent {
 
     const persona_id: number = parseInt(sessionStorage.getItem('user_id')!);
 
-    this.dataService.verPersona(persona_id).subscribe((persona: any) => {
-      this.nombre = persona.nombre;
+    this.subscription = this.dataService.getPersonaSubject().subscribe((r:any) => {
+
+      this.dataService.verPersona(persona_id).subscribe((persona: any) => {
+        this.nombre = persona.nombre;
+      });
+
     });
+
+    this.dataService.getPersonaSubject().next();
 
   }
 
