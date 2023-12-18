@@ -5,8 +5,9 @@
         <div class="col-md-6 mx-auto">
             <label for="selectEjercicio" class="form-label">Vea los datos históricos de los ejercicios que ha
                 realizado:</label>
-            <select id="selectEjercicio" class="form-select" [(ngModel)]="ejercicioSeleccionado">
-                <option (click)="actualizarGrafico(ejercicio.id)" 
+            <select id="selectEjercicio" class="form-select" [(ngModel)]="ejercicioSeleccionado"
+            (change)="actualizarGrafico()">
+                <option
                 *ngFor="let ejercicio of listaEjercicios" [value]="ejercicio.id">
                     {{
                     ejercicio.nombre}}

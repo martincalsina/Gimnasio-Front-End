@@ -1,4 +1,4 @@
-<div class="container d-flex align-items-center justify-content-center vh-100 mt-3">
+<div class="container d-flex align-items-center justify-content-center mt-3">
     <div class="card w-75 min-width-300px min-width-sm-400px min-width-md-500px">
         <div class="card-header">
             <h3 class="text-center">Crear Cuenta</h3>
@@ -43,6 +43,9 @@
                     <div class="form-invalid" *ngIf="signupForm!.get('correo')!.hasError('required') && signupForm!.get('correo')!.touched">
                         Campo requerido.
                     </div>
+                    <div class="form-invalid" *ngIf="correoRegistrado">
+                        Este correo electrónico ya se encuentra registrado.
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -74,6 +77,9 @@
                 <button type="submit" class="btn btn-primary">Registrarse</button>
             </form>
         </div>
+        <div *ngIf="usuarioCreado" class="alert alert-success usuarioCreado" role="alert">
+            Usuario registrado exitosamene. Se le redirigirá a la sección de Login.
+        </div>        
         <div class="card-footer text-center">
             <p class="mb-0">¿Ya tienes una cuenta? <a routerLink="/login">Inicia Sesión</a></p>
         </div>

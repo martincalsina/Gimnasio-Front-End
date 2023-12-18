@@ -83,7 +83,9 @@ export class DatosHistoricosComponent {
 
   }
 
-  actualizarGrafico(ejercicio_id: number): void {
+  actualizarGrafico(): void {
+
+    const ejercicio_id = this.ejercicioSeleccionado;
 
     this.cargaService.setCargandoSubject(true);
 

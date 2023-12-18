@@ -14,6 +14,9 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup | undefined;
 
+  public correoRegistrado: boolean = false;
+  public usuarioCreado: boolean = false;
+
   public nombre: string = "";
   public apellido: string = "";
   public correo: string = "";
@@ -56,22 +59,32 @@ export class SignupComponent implements OnInit {
 
       console.log('Formulario válido', this.signupForm!.value);
 
+      this.correoRegistrado = false;
+
       this.dataService.correoDisponible(this.correo.toLowerCase()).subscribe((correoValido) => {
 
         this.cargaService.setCargandoSubject(true);
 
         if (correoValido) {
+
           let persona: Persona = new Persona(this.nombre, this.apellido, this.correo, this.password);
           this.dataService.registrarUsuario(persona);
           console.log("Usuario creado");
+
+          this.usuarioCreado = true;
+
+          setTimeout(() => {
+            console.log("Redireccionamiento a la sección de login");
+            this.router.navigate(['/login']);
+          }, 5000);
+
         } else {
-          console.log("El correo ya se encuentra registrado");
+          this.correoRegistrado = true;
+          console.log("El correo ya se encuentra registrado");         
         }
 
         this.cargaService.setCargandoSubject(false);
       });
-
-      this.router.navigate(['/login']);
 
     } else {
       // Mostrar errores al usuario
