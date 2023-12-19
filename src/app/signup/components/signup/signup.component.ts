@@ -82,6 +82,9 @@ export class SignupComponent implements OnInit {
           console.log("Usuario creado");
 
           this.usuarioCreado = true;
+
+          //desactivamos la pantalla de carga
+          this.cargaService.setCargandoSubject(false); 
           
           //si se creó al usuario, damos un tiempito para que la persona pueda ver
           //el alert de que se registró exitósamente
@@ -92,11 +95,11 @@ export class SignupComponent implements OnInit {
 
         } else {
           this.correoRegistrado = true;
-          console.log("El correo ya se encuentra registrado");         
+          console.log("El correo ya se encuentra registrado");    
+          //desactivamos la pantalla de carga
+          this.cargaService.setCargandoSubject(false);      
         }
         
-        //desactivamos la pantalla de carga
-        this.cargaService.setCargandoSubject(false); 
       });
 
     } else {
