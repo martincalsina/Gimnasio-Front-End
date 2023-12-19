@@ -8,14 +8,13 @@ import { CargaService } from '../../../../services/carga.service';
   styleUrl: './agregar-rutina.component.css'
 })
 export class AgregarRutinaComponent implements OnInit, OnChanges{
-
+  
   @Input() persona_id_input: any;
+  //obtenemos el botón de cerrar del modal de Bootstrap
   @ViewChild('cerrarAlTerminar') cerrarAlTerminar!: ElementRef;
 
   private persona_id: number = -1;
   public nombreNuevaRutina: string = "";
-
-
 
   constructor(private dataService: DataService,
     private cargaService: CargaService) {
@@ -23,7 +22,6 @@ export class AgregarRutinaComponent implements OnInit, OnChanges{
   }
 
   ngOnInit(): void {
-    parseInt(sessionStorage.getItem('user_id')!)
   }
 
   ngOnChanges(): void {
@@ -31,19 +29,18 @@ export class AgregarRutinaComponent implements OnInit, OnChanges{
   }
 
   agregarRutina() {
-
+    
+    //comienza la pantalla de carga
     this.cargaService.setCargandoSubject(true);
 
     console.log("usuario que agrega rutina:", this.persona_id);
     console.log("nombre de nueva rutina:", this.nombreNuevaRutina);
     this.dataService.agregarRutina(this.persona_id, this.nombreNuevaRutina).subscribe((response: any) => {
       
-
       console.log(response);
-      this.dataService.getRutinasSubject().next();
-      this.cerrarAlTerminar.nativeElement.click();
-
-      this.cargaService.setCargandoSubject(false);
+      this.dataService.getRutinasSubject().next(); //actualizamos la lista de rutinas
+      this.cerrarAlTerminar.nativeElement.click(); //clickeamos el botón de cerrar del modal
+      this.cargaService.setCargandoSubject(false); //quitamos la pantalla de carga
     });
   }
 

@@ -5,7 +5,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class CargaService {
-
+  
+  //variable para decidir si se tiene que mostrar o no la pantalla de carga
   private cargandoSubject: Subject<boolean> = new Subject();
 
   constructor() { }

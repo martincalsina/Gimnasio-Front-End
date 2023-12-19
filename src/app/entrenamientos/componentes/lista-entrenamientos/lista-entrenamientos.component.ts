@@ -13,9 +13,12 @@ import { CargaService } from '../../../services/carga.service';
 export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestroy{
 
   private persona_id: number = -1;
+
+  //lista con todos los entrenamientos de una persona
   public entrenamientos: any[] = [];
   public entrenamientoSeleccionado: number = -1;
-
+  
+  //variables para decidir si actualizar la lista de entrenamientos del usuario
   private subscription = new Subscription();
 
   constructor(private dataService: DataService, 
@@ -38,11 +41,12 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
   }
 
   actualizarEntrenamientos(): void {
-
+    
+    //pantalla de carga
     this.cargaService.setCargandoSubject(true);
 
     this.persona_id = parseInt(sessionStorage.getItem('user_id')!);
-    console.log("id del usuario:", this.persona_id);
+    //console.log("id del usuario:", this.persona_id);
     this.dataService.entrenamientosDe(this.persona_id).subscribe((entrenamientos:any) => {
       
       console.log("entrenamientos cargados:", entrenamientos);      
@@ -67,11 +71,13 @@ export class ListaEntrenamientosComponent implements OnInit, OnChanges, OnDestro
   irAgregarRutina() {
     this.router.navigate(['/entrenamientos/agregar']);
   }
-
+  
+  //actualizamos el id del entrenamiento seleccionado para pasárselo al modal que corresponde
   eliminarEntrenamientoSeleccionado(entrenamiento_id: number): void {
     this.entrenamientoSeleccionado = entrenamiento_id;
   }
-
+  
+  //nos guardamos el id del entrenamiento seleccionado para ir a la ruta del componente de edición
   editarEntrenamientoSeleccionado(entrenamiento_id: number): void {
     sessionStorage.setItem('entrenamientoSeleccionado_id', entrenamiento_id.toString()); 
     this.router.navigate(['/entrenamientos/editar']);

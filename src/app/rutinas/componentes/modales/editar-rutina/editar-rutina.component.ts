@@ -10,6 +10,7 @@ import { CargaService } from '../../../../services/carga.service';
 export class EditarRutinaComponent {
 
   @Input() rutina: any = {};
+  //botón de cerrar el modal
   @ViewChild('cerrarAlTerminar') cerrarAlTerminar!: ElementRef;
   
   public rutina_id: number = -1;
@@ -24,14 +25,16 @@ export class EditarRutinaComponent {
   }
 
   editarRutina() {
-
-    this.cargaService.setCargandoSubject(true);
+    
+    //pantalla de carga sí
+    this.cargaService.setCargandoSubject(true); 
 
     this.dataService.editarRutina(this.rutina_id, this.rutina_nombre).subscribe((data) => {
       console.log("Rutina editada: ", data);
-      this.dataService.getRutinasSubject().next();
+      this.dataService.getRutinasSubject().next(); //actualizar lista de rutinas
       this.cerrarAlTerminar.nativeElement.click(); //se aprieta el botón de cerrar solito
-
+      
+      //pantalla de carga no
       this.cargaService.setCargandoSubject(false);
     });
   }

@@ -18,9 +18,14 @@ export class EditarEntrenamientosComponent implements OnInit, OnDestroy {
   public entrenamiento_id: number = -1;
 
   private persona_id: number = -1;
-
+  
+  //variable para traer todas las rutinas del usuario
   public listaRutinas: any[] = [];
+  //variable para traer todos los ejericios registrados
   public listaEjercicios: any[] = [];
+
+  public rutinaValida: boolean = true;
+  public cantSetsValidos: boolean = true;
   
   public rutinaElegida: number = -1;
 
@@ -38,16 +43,17 @@ export class EditarEntrenamientosComponent implements OnInit, OnDestroy {
     }
   ];
 
-  private subcription: Subscription = new Subscription();
 
   constructor(private dataService: DataService, 
     private cargaService: CargaService,
     private router: Router) {
 
     }
-
+  
+  //es todo muy similar al crear, sólo que inicialmente tenemos que traer toda la data del entrenamiento
+  //a editar y rellenar nuestras variables con ella
   ngOnInit(): void {
-
+    
     this.cargaService.setCargandoSubject(true);
 
     this.persona_id = parseInt(sessionStorage.getItem("user_id")!);
@@ -56,7 +62,8 @@ export class EditarEntrenamientosComponent implements OnInit, OnDestroy {
 
     this.entrenamiento_id = parseInt(sessionStorage.getItem('entrenamientoSeleccionado_id')!);
     console.log("Se quiere editar al entrenamiento:", this.entrenamiento_id);
-
+    
+    //lo distinto del crear
     this.dataService.getEntrenamiento(this.entrenamiento_id).subscribe((data: any) => {
       this.cargarEntrenamientoAEditar(data);
     });
@@ -64,7 +71,6 @@ export class EditarEntrenamientosComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subcription.unsubscribe();
   }
 
   //--------------------------------
@@ -80,7 +86,8 @@ export class EditarEntrenamientosComponent implements OnInit, OnDestroy {
     this.cargaService.setCargandoSubject(false);
     
   }
-
+  
+  //tenemos que rellenar la variable this.sets con toda la data que nos dieron
   cargarSetsAEditar(sets: any): any[] {
 
     let cantidadSets: number = sets.length;
@@ -131,23 +138,49 @@ export class EditarEntrenamientosComponent implements OnInit, OnDestroy {
     return repeticion
   }
 
-  //CARGA DE DATOS A EDITAR
-
   //----------------------------------
-
-
+  
+  //es como el agregarEntrenamiento pero pasándole el id del entrenamiento existente
   editarEntrenamiento() {
+
+    this.rutinaValida=true;
+    this.cantSetsValidos=true;
+
+    let cantidadSets = this.sets.length;
+
+    if (this.rutinaElegida == -1) {
+      console.log("Elija una rutina");
+      this.rutinaValida = false;
+    }
+    else if (cantidadSets == 0) {
+      console.log("No se puede cargar un entrenamiento vacío");
+      this.cantSetsValidos = false;
+    } else {
+
+    this.cargaService.setCargandoSubject(true); //ponemos la pantalla de carga
+
     let entrenamiento: Entrenamiento = this.obtenerEntrenamiento();
 
     this.dataService.editarEntrenamiento(this.entrenamiento_id, entrenamiento).subscribe(data => {
       console.log("entrenamiento editado:", data);
-      this.dataService.getEntrenamientosSubject().next();
+      this.dataService.getEntrenamientosSubject().next(); //actualizamos la lista de entrenamientos
+      this.cargaService.setCargandoSubject(false); //quitamos la pantalla de carga
+
+      this.router.navigate(['/entrenamientos']);
+    }, error => {
+      this.cargaService.setCargandoSubject(false); //quitamos la pantalla de carga
     });
 
     sessionStorage.removeItem('entrenamientoSeleccionado_id');
 
     this.router.navigate(['/entrenamientos']);
+
+    }
   }
+
+  //---------------------------
+
+  //los métodos que vienen son exactamente iguales que los de agregar-entrenamientos
 
   cargarRutinas() {
     this.dataService.rutinasDe(this.persona_id).subscribe((data:any) => {

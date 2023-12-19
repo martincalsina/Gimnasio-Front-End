@@ -12,9 +12,12 @@ export class DataService {
   backendUrl = "http://localhost:8080"; //local
   //backendUrl = "https://backend-gimnasio.onrender.com"; //produccion
 
+  //variable para decidir si hay que hacer una request sobre las rutinas del usuario
   private rutinasSubject = new Subject<void>();
+  //lo mismo pero para sus entrenamientos
   private entrenamientosSubject = new Subject<void>();
-  private personaSubject = new Subject<void>(); //pa actualizar el nombre en la topbar si es que se edita
+  //otra vez, pero para actualizar el nombre en la topbar si es que se edita
+  private personaSubject = new Subject<void>();
 
   constructor(private http: HttpClient) { 
   }

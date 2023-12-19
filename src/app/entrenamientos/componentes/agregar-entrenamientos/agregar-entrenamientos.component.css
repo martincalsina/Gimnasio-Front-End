@@ -1,3 +1,8 @@
-.btn-eliminar-ejercicio {
-    margin: auto;
+.btn-eliminar-container {
+    display: flex;
+    justify-content: right;
+}
+
+.agregarEjercicio-container {
+    width: 100%;
 }

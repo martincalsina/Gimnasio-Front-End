@@ -14,14 +14,20 @@ import { CargaService } from '../../../services/carga.service';
 export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
 
   private persona_id: number = -1;
-
+  
+  //rutinas del select
   public listaRutinas: any[] = [];
+  //ejercicios para el select de cada uno de los sets
   public listaEjercicios: any[] = [];
   
   public rutinaElegida: number = -1;
 
-  public fecha: Date = new Date();
+  public rutinaValida: boolean = true;
+  public cantSetsValidos: boolean = true;
 
+  public fecha: Date = new Date();
+  
+  //datos de todos los sets creados
   public sets: any[] = [
     {
       ejercicio: 1, cantSeries: 1, ejercicio_id: 1, peso: 1,
@@ -40,7 +46,7 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
   }
 
   ngOnInit() {
-
+    //ponemos la pantalla de carga y nos traemos todas las rutinas y ejercicios disponibles
     this.cargaService.setCargandoSubject(true);
     this.persona_id = parseInt(sessionStorage.getItem("user_id")!);
     this.cargarRutinas();
@@ -48,9 +54,9 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
   }
   
   ngOnChanges(): void {
-    console.log("rutina elegida", this.rutinaElegida);
-    console.log("fecha elegida", this.fecha);
-    console.log("sets Registrados;",this.sets);
+    //console.log("rutina elegida", this.rutinaElegida);
+    //console.log("fecha elegida", this.fecha);
+    //console.log("sets Registrados;",this.sets);
   }
 
   cargarRutinas() {
@@ -63,9 +69,9 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
   cargarEjercicios() {
     this.dataService.getEjercicios().subscribe((data:any) => {
 
-      // Ordenar la lista de ejercicios por nombre
+      //ordenar la lista de ejercicios por nombre
       this.listaEjercicios = data.content.sort((a: any, b: any) => {
-        const nombreA = a.nombre.toUpperCase(); // convertir a mayúsculas para asegurar un ordenamiento insensible a mayúsculas/minúsculas
+        const nombreA = a.nombre.toUpperCase(); //convertir a mayúsculas para asegurar un ordenamiento insensible a mayúsculas/minúsculas
         const nombreB = b.nombre.toUpperCase();
         if (nombreA < nombreB) {
           return -1;
@@ -81,7 +87,8 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
       this.cargaService.setCargandoSubject(false);
     });
   }
-
+  
+  //si se agrega un nuevo ejercicio debemos actualizar la lista de sets que tenemos
   agregarEjercicio() {
     let cantEjercicios: number = this.sets.length;
     if (cantEjercicios == 0) {
@@ -95,7 +102,8 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
         ]
       }];
     } else {
-      let ultimoEjercicio: number = this.sets.at(cantEjercicios - 1)!.ejercicio;
+      let ultimoEjercicio: number = this.sets.at(cantEjercicios - 1)!.ejercicio; //el número de ejercicio,
+      //en verdad no era necesario, pero lo dejé
       let nuevoEjercicio = {
         ejercicio: ultimoEjercicio, cantSeries: 1, ejercicio_id: 1, peso: 1,
         repeticiones: [
@@ -110,15 +118,16 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
   }
 
   eliminarEjercicio(posicionEjercicio: number) {
-    // Verificar si la posición está dentro de los límites del array
+
     if (posicionEjercicio >= 0 && posicionEjercicio < this.sets.length) {
-      // Utilizar splice para eliminar el elemento en la posición especificada
       this.sets.splice(posicionEjercicio, 1);
     } else {
       console.error('Posición de ejercicio no válida');
     }
   }
-
+  
+  /*Para cada set, hay un input con la cantidad de series realizadas,
+  si este cambia, cambian la cantidad de inputs para registrar las repeticiones de ese ejercicio*/
   actualizarRepeticiones(indice: number) {
 
     let setParticular = this.sets.at(indice);
@@ -136,11 +145,21 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
 
   agregarEntrenamiento() {
 
+    this.rutinaValida=true;
+    this.cantSetsValidos=true;
+
     let cantidadSets = this.sets.length;
 
-    if (cantidadSets == 0) {
+    if (this.rutinaElegida == -1) {
+      console.log("Elija una rutina");
+      this.rutinaValida = false;
+    }
+    else if (cantidadSets == 0) {
       console.log("No se puede cargar un entrenamiento vacío");
+      this.cantSetsValidos = false;
     } else {
+
+      this.cargaService.setCargandoSubject(true);
 
       let entrenamiento: Entrenamiento = this.obtenerEntrenamiento();
 
@@ -148,7 +167,11 @@ export class AgregarEntrenamientosComponent implements OnInit, OnChanges{
 
       this.dataService.agregarEntrenamiento(entrenamiento).subscribe((data:any) => {
         console.log("Entrenamiento creado:", data);
-        this.dataService.getEntrenamientosSubject().next();
+        this.dataService.getEntrenamientosSubject().next(); //actualizamos la lista de entrenamientos
+        this.cargaService.setCargandoSubject(false); //se va la pantalla de carga
+      }, error => {
+        console.log("No se pudo registar el entrenamiento ", error);
+        this.cargaService.setCargandoSubject(false); //se va la pantalla de carga
       });
 
       this.router.navigate(['/entrenamientos']);

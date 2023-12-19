@@ -10,11 +10,14 @@ import { Persona } from '../../../shared/models/shared.models.persona';
   styleUrl: './perfil.component.css'
 })
 export class PerfilComponent {
-
+ 
+  //formulario reactivo
   editarPerfilForm: FormGroup | undefined;
 
   private persona_id: number = -1;
+  //variable para mostrarle al usuario el alert de que se han editado sus datos exitósamente
   public usuarioEditado: boolean = false;
+  //variable para mostrarle al usuario que la contraseña ingresada es incorrecta
   public passwordInvalida: boolean = false;
 
   public nombre: string = "";
@@ -28,7 +31,8 @@ export class PerfilComponent {
     private cargaService: CargaService) {}
 
   ngOnInit() {
-
+    
+    //validators
     this.editarPerfilForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(100)]],
       apellido: ['', [Validators.required, Validators.maxLength(100)]],
@@ -43,7 +47,8 @@ export class PerfilComponent {
   }
 
   cargaDatosPersona() {
-
+    
+    //pantalla de carga on
     this.cargaService.setCargandoSubject(true);
 
     this.dataService.verPersona(this.persona_id).subscribe((data:any) => {
@@ -51,7 +56,8 @@ export class PerfilComponent {
       this.nombre = data.nombre;
       this.apellido = data.apellido;
       this.correo = data.correo;
-
+      
+      //pantalla de carga off
       this.cargaService.setCargandoSubject(false);
 
     });
@@ -63,7 +69,8 @@ export class PerfilComponent {
     this.usuarioEditado = false;
 
     if (this.editarPerfilForm?.valid) {
-
+      
+      //cargando
       this.cargaService.setCargandoSubject(true);
 
       console.log('Formulario válido', this.editarPerfilForm!.value);
@@ -85,7 +92,7 @@ export class PerfilComponent {
 
           this.dataService.getPersonaSubject().next(); //que se actualice la topbar
 
-          this.cargaService.setCargandoSubject(false);
+          this.cargaService.setCargandoSubject(false); //fin de carga
 
         }, error => {
 
@@ -99,7 +106,7 @@ export class PerfilComponent {
 
         this.passwordInvalida = true;
 
-        this.cargaService.setCargandoSubject(false);
+        this.cargaService.setCargandoSubject(false); //fin de carga
 
       });
 
@@ -108,7 +115,8 @@ export class PerfilComponent {
     }
 
   }
-
+  
+  //vemos que un input particular del form cumpla con los validators
   inputValido(formControlName: string): boolean {
     if (this.editarPerfilForm!.get(formControlName)?.valid) {
       return true;

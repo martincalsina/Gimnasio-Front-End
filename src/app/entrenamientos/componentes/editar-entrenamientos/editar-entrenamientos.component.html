@@ -16,9 +16,6 @@
             <input [(ngModel)]="fecha" type="date" class="form-control" id="fecha" name="fecha">
         </div>
 
-        <!-- Botón para agregar un nuevo ejercicio -->
-        <button type="button" class="btn btn-primary" (click)="agregarEjercicio()">Agregar Ejercicio</button>
-
         <!-- Contenedor para los inputs de ejercicio (se expandirá dinámicamente) -->
         <div *ngFor="let ejercicio of sets; let i = index" class="mt-3">
 
@@ -69,6 +66,19 @@
                 <input [(ngModel)]="sets.at(i).repeticiones.at(serieIndex).cantidad" type="number" class="form-control"
                     id="repeticiones{{ i }}{{ serie }}" name="repeticiones{{ i }}{{ serieIndex }}" min="0" value="8">
             </div>
+        </div>
+
+        <div *ngIf="!rutinaValida" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>Debe elegir una rutina.</p>
+        </div>
+
+        <div *ngIf="!cantSetsValidos" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>No puede guardar un entrenamiento sin sets.</p>
+        </div>
+
+        <!-- Botón para agregar un nuevo ejercicio -->
+        <div class="agregarEjercicio-container">
+            <button type="button" class="btn btn-primary" (click)="agregarEjercicio()">Agregar Ejercicio</button>
         </div>
 
         <!-- Botón para enviar el formulario -->

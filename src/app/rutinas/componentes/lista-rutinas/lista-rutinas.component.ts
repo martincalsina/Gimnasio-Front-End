@@ -19,6 +19,7 @@ export class ListaRutinasComponent {
     nombre: ""
   };
   
+  //variable para actualizar dinámicamente la lista de rutinas de una persona
   private subscription = new Subscription();
 
   constructor(private dataService: DataService,
@@ -40,11 +41,12 @@ export class ListaRutinasComponent {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe(); //pa no quedarme sin memoria, qlklk
+    this.subscription.unsubscribe();
   }
 
   actualizarRutinas(): void {
-
+    
+    //cada que se actualizan las rutinas, se inicia la pantalla de carga
     this.cargaService.setCargandoSubject(true);
 
     this.persona_id = parseInt(sessionStorage.getItem('user_id')!);
@@ -53,7 +55,8 @@ export class ListaRutinasComponent {
 
       this.rutinas = rutinas;
       console.log("rutinas cargadas:", rutinas);
-
+      
+      //al terminar la request, la pantalla de carga desaparece
       this.cargaService.setCargandoSubject(false);
       
     })

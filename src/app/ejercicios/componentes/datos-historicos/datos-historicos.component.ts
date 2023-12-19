@@ -12,7 +12,9 @@ import { CargaService } from '../../../services/carga.service';
 export class DatosHistoricosComponent {
 
   private persona_id: number = -1;
-
+  
+  //cada que actualizamos el gráfico, lo hago desaparecer y volver con un ngIf,
+  //de tal manera que recargue sus datos
   public showData = false;
 
   listaEjercicios: any[] = []; 
@@ -22,7 +24,7 @@ export class DatosHistoricosComponent {
 
   public barChartPlugins = [];
 
-  // Configuración del gráfico
+  //configuración del gráfico
   barChartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -41,10 +43,10 @@ export class DatosHistoricosComponent {
     }
   };
 
-  // Tipo de gráfico
+  //tipo de gráfico
   barChartType: ChartType = 'line';
 
-  // Datos del gráfico
+  //datos del gráfico
   barChartData: ChartConfiguration<'line'>['data'] = {
     labels: [ '2010-12-12' ],
     datasets: [
@@ -94,11 +96,13 @@ export class DatosHistoricosComponent {
     setTimeout(() =>{
 
       this.dataService.obtenerDatosHistoricos(this.persona_id, ejercicio_id).subscribe((data) => {
-      
+        
+        //obtenemos la lista de entrenamientos en los que se realizó el ejercicio pedido
         let dataset: any[] = data.datosHistoricos;
   
         console.log("cargué los datos:", data);
-  
+        
+        //ordenamos por fecha
         dataset.sort((a: any, b: any) => {
           const fechaA = new Date(a.fecha).getTime();
           const fechaB = new Date(b.fecha).getTime();
@@ -115,23 +119,26 @@ export class DatosHistoricosComponent {
           data: [],
           label: data.ejercicio_nombre
         }
-  
+        
+        //vamos agregando los pesos y las fecha de a pares
         for (let i = 0; i < dataset.length; i++) {
           
           let datoHistorico: any = dataset.at(i);
-  
+          
+          //las fechas directamente al atributo que tenemos
           this.barChartData.labels.push(datoHistorico.fecha);
+          //los pesos a la variable auxiliar
           dataSetFinal.data.push(datoHistorico.peso);
   
         }
-  
-        this.barChartData.datasets.push(Object.assign({}, dataSetFinal)); // Crear copia
+        
+        this.barChartData.datasets.push(Object.assign({}, dataSetFinal));
   
         //this.barChartData.datasets.push(dataSetFinal);
   
         console.log("actualicé los datos:", this.barChartData);
 
-        this.showData = true;
+        this.showData = true; //mostramos el gráfico
 
         this.cargaService.setCargandoSubject(false);
         
