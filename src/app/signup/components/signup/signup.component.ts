@@ -68,12 +68,12 @@ export class SignupComponent implements OnInit {
       console.log('Formulario válido', this.signupForm!.value);
 
       this.correoRegistrado = false;
+
+      //activamos la pantalla de carga
+      this.cargaService.setCargandoSubject(true);
       
       //si el form es válido, checkeamos que el correo esté disponible
       this.dataService.correoDisponible(this.correo.toLowerCase()).subscribe((correoValido) => {
-        
-        //activamos la pantalla de carga
-        this.cargaService.setCargandoSubject(true);
 
         if (correoValido) {
 
@@ -100,6 +100,10 @@ export class SignupComponent implements OnInit {
           this.cargaService.setCargandoSubject(false);      
         }
         
+      }, error => {
+        console.log("Error al registrar usuario", error);
+        //desactivamos la pantalla de carga
+        this.cargaService.setCargandoSubject(false);
       });
 
     } else {

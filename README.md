@@ -48,6 +48,8 @@ La conexión a la API es manejada por el archivo `services/data.service.ts`, cue
 
 En todo momento se utilizan los modulos de routing de Angular para actualizar la vista del usuario, desplegando una pantalla de carga en caso de tener que hacer una request al Backend y evitando tener que recargar la página sucesivas veces.
 
+![Estrutura de carpetas](./images/estructura.png)
+
 ## Funcionamiento
 
 Lo primero que hace la aplicación al cargar es verificar si hay el usuario que ha ingresado está loggeado o no. Toma como criterio para esto la variable `user_id` en el `sessionStorage` del navegador. Si esta posee algún valor, se lo toma como el `id` del usuario en cuestión y se lo redirige a la vista de `inicio` de la aplicación. Caso contrario, el usuario debe Registrase o Iniciar Sesión en el sitio.
@@ -59,29 +61,43 @@ Si nunca se ha registro, es lo primero que se ha de hacer. De esto se encarga la
 
 Una vez registrado correctamente, el usuario es redirigido a la sección de Login para que pueda iniciar sesión.
 
+![Formulario de registro](./images/registro.png)
+
 ### Login de Usuarios
 
 Manejado por la carpeta `login`, le permite a un usuario ingresar sus credenciales para acceder al sitio. Una vez ingresados correo electrónico y contraseña correctos, se obtiene el `id` asociado a éste en la base de datos y se lo guarda en el `sessionStorage` como `user_id`, se utilizará posteriormente para acceder a todas las entidades en base de datos relacionadas con él.
+
+![Formulario de login](./images/login.png)
 
 ### Inicio
 
 Loggeado el usuario, se le redirige a la vista de `inicio`, del directorio de mismo nombre. Se obtienen algunos datos de éste con su id, se le muestra un mensaje de bienvenida a la aplicación y una barra de navegación en la parte superior de su pantalla, es propia de `shared/topbar`. La misma le permite acceder vía `routerLink`s a las distintas secciones del proyecto, así como cambiar algunos de sus datos o cerrar sesión si despliega el dropdown asociado a su nombre.
 
+![Vista de inicio](./images/inicio.png)
+
 ### Rutinas
 
 Se listan los nombres de las rutinas del usuario, se le permite agregar nuevas, editar las existentes y eliminarlas. A cada rutina se le asocian un conjunto de entrenamientos, por lo que si se quiere crear alguno, es un requisito previo contar con al menos una rutina. Eliminar una de éstas implica eliminar todos los entrenamientos asociados a ella. Es manejado por la carpeta `rutinas`.
+
+![Lista de rutinas](./images/rutinas.png)
 
 ### Entrenamientos
 
 Llevar su registro es la función principal de la aplicación. Se pueden encontrar los componentes utilizados en la carpeta `entrenamientos`. Se le permite al usuario agregar nuevos entrenamientos y ver sus datos de forma amigable ordenados descendentemente por la fecha de cada uno. Al agregar o editar un entrenamiento, el usuario ha de indicar la rutina a la que éste pertenece, la fecha, y por tantos ejercicios como haya realizado: el ejercicio en cuestión, el peso utilizado, las series y las cantidad de repeticiones hechas en cada una de ellas. 
 
+![Lista de entrenamientos](./images/listado-entrenamientos.png)
+
 ### Ejercicios
 
 Para cada uno de los ejercicios existentes, el usuario puede ver en forma de gráfico de líneas su progreso en términos de peso utilizado en función del tiempo. Toda la lógica de esta vista se encuentra en la carpeta `ejercicios`.
 
+![Datos Históricos para un ejercicio](./images/ejercicios.png)
+
 ### Perfil
 
 En este apartado la persona puede editar algunos de los datos con los que se ha registrado (por el momento sólo nombre y apellido). Tiene que dar valores válidos para los campos que corresponden y reingresar su contraseña para poder confirmar los cambios. Todo esto se encuentra en el directorio `perfil`.
+
+![Interfaz de editar perfil](./images/perfil.png)
 
 ### Error 404
 
